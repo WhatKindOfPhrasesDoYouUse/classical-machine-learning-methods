@@ -55,7 +55,6 @@ def splid_data():
 
 def main():
     split = splid_data()
-	ОШИБКА ДЛЯ ПРОВЕРКИ CI
 
 if __name__ == '__main__':
     main()
