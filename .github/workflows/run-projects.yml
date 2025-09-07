@@ -5,6 +5,7 @@ on:
     branches: [main, dev]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 jobs:
   check-data-preprocessing:
     runs-on: ubuntu-latest
