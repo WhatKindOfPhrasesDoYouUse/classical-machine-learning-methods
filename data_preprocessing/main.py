@@ -1,60 +1,36 @@
-import os
-import numpy as np
-import pandas as pd
-import kagglehub as kh
-from sklearn.model_selection import train_test_split
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
-from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
-
-""" 
-    Загружает и возвращает данные c Kaggle. 
-"""
-def load_data():
-    path_to_dataset_folder = kh.dataset_download("yasserh/titanic-dataset")
-    csv_path = os.path.join(path_to_dataset_folder, "Titanic-Dataset.csv")
-    df = pd.read_csv(csv_path)
-    return df
-
-""" 
-    Выделяет признаки и добавляет пропуски в поле возраста. 
-"""
-def highlights_signs():
-    df = load_data()
-    cols = ['Survived', 'Pclass', 'Sex', 'Age', 'Fare', 'Embarked']
-    df = df[cols].copy() # Оставляет данные только из выбранных колонок.
-    df.loc[df.sample(frac=0.1, random_state=42).index, 'Age'] = np.nan
-    #print(f"Количество пропусков: \n {df.isna().sum()}")
-    return df
-
-""" 
-    Разделяет данные на обучающую и тестовую выборку 
-    в соотношении 80/20. 
-"""
-def splid_data():
-    df = highlights_signs()
-    X = df.drop("Survived", axis=1)
-    y = df["Survived"]
-
-    X_train, X_test, y_train, y_test = train_test_split(
-        X,
-        y,
-        test_size=0.2,
-        random_state=42,
-        stratify=y
-    )
-
-    print(f"Обучающая выборка: {X_train.shape} {y_train.shape}")
-    print(f"Тестовая выборка: {X_test.shape} {y_test.shape}")
-
-    return X_train, X_test, y_train, y_test
-
+from data_preprocessing.data.TitanicLoader import TitanicLoader
+from data_preprocessing.processing.DataPreprocessor import DataPreprocessor
+from data_preprocessing.processing.PipelineCreator import PipelineCreator
 
 def main():
-    split = splid_data()
+    print("Загрузка данных...")
+    data = TitanicLoader()
+    data.load_from_kaggle()
+    print(data.get_data())
+    print(data.get_info())
+
+    print("\nПрепроцессинг данных...")
+    preproc = DataPreprocessor(data.df)
+    preproc.select_features(None)
+    preproc.add_missing_values(None, None)
+    X_train, X_test, y_train, y_test = preproc.split_data(None, None)
+    print(preproc.get_split_info())
+
+    print("\nСоздание и обучение pipeline...")
+    pipeline_creator = PipelineCreator(
+        numeric_features=None,
+        categorical_features=None,
+        classifier=None
+    )
+    pipeline = pipeline_creator.create_pipeline()
+    pipeline.fit(X_train, y_train)
+
+    print("\nОценка качества модели...")
+    y_predicted = pipeline.predict(X_test)
+    accuracy = accuracy_score(y_test, y_predicted)
+    print(f" Точность модели: {accuracy:.4f}")
+    print(f" Процент правильных предсказаний: {accuracy * 100:.2f}%")
 
 if __name__ == '__main__':
     main()
