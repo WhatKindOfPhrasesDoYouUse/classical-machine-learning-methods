@@ -3,7 +3,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.impute import SimpleImputer
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
-from data_preprocessing.helpers.dataHelper import set_default_if_input_value_null
+from helpers.dataHelper import set_default_if_input_value_null
 
 class ManualPreprocessor:
 	"""

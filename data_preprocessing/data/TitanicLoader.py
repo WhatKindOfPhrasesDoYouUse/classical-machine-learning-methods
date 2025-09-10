@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import kagglehub as kh
 from pandas import DataFrame
-from data_preprocessing.helpers.validationHelper import validate_null_object
+from helpers.validationHelper import validate_null_object
 
 class TitanicLoader:
     """ Класс загрузки данных титаника с Kaggle. """

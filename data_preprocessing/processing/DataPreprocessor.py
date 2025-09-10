@@ -1,8 +1,8 @@
 import numpy as np
 from pandas import DataFrame
 from sklearn.model_selection import train_test_split
-from data_preprocessing.helpers.validationHelper import validate_null_object
-from data_preprocessing.helpers.dataHelper import set_default_if_input_value_null
+from helpers.validationHelper import validate_null_object
+from helpers.dataHelper import set_default_if_input_value_null
 
 class DataPreprocessor:
     """

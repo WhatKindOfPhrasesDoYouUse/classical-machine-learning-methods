@@ -34,8 +34,8 @@ def manual_worker() -> None:
 		y_test)
 
 	print("\nОценка качества модели (ручной подход)...")
-	print(f" Точность модели: {accuracy:.4f}")
-	print(f" Процент правильных предсказаний: {accuracy * 100:.2f}%")
+	print(f" Точность модели: {accuracy:.6f}")
+	print(f" Процент правильных предсказаний: {accuracy * 100:.4f}%")
 
 def pipeline_worker() -> None:
     print("Загрузка данных...")
@@ -63,8 +63,8 @@ def pipeline_worker() -> None:
     print("\nОценка качества модели...")
     y_predicted = pipeline.predict(X_test)
     accuracy = accuracy_score(y_test, y_predicted)
-    print(f" Точность модели: {accuracy:.4f}")
-    print(f" Процент правильных предсказаний: {accuracy * 100:.2f}%")
+    print(f" Точность модели: {accuracy:.6f}")
+    print(f" Процент правильных предсказаний: {accuracy * 100:.4f}%")
 
 def measure_time(func: Callable[..., Any], iteration_count: int = 20, *args, **kwargs) -> float:
     """ Считает время затраты на обучение ручным способом, и с помощью pipeline. """
@@ -79,13 +79,13 @@ def measure_time(func: Callable[..., Any], iteration_count: int = 20, *args, **k
 
 def main():
     pipeline_worker()
-    manual_worker()
+    #manual_worker()
      
-    manual_time = measure_time(manual_worker, 20)
-    print(f"Время затраты на ручное обучение на 20 опытах: {manual_time:.6f}")
+    #manual_time = measure_time(manual_worker, 20)
+    #print(f"Время затраты на ручное обучение на 20 опытах: {manual_time:.6f}")
     
-    pipeline_time = measure_time(pipeline_worker, 20)
-    print(f"Время затраты на pipeline обучение на 20 опытах: {pipeline_time:.6f}")
+    #pipeline_time = measure_time(pipeline_worker, 20)
+    #print(f"Время затраты на pipeline обучение на 20 опытах: {pipeline_time:.6f}")
           
 
 if __name__ == '__main__':
