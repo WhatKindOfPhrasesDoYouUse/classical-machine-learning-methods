@@ -25,3 +25,22 @@ jobs:
 
       - name: Run data preprocessing pipeline
         run: python -m data_preprocessing.data_preprocessing_main
+
+  check-linear-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Linear Regression
+        run: python -m linear_regression.linear_regression_main
