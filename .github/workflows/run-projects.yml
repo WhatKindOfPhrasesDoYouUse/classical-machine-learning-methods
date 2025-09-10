@@ -24,4 +24,4 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run data preprocessing pipeline
-        run: python -m data_preprocessing.main
+        run: python -m data_preprocessing.data_preprocessing_main.py
