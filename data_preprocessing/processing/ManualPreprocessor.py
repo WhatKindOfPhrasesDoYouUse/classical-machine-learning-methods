@@ -5,6 +5,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from helpers.dataHelper import set_default_if_input_value_null
 
+
 class ManualPreprocessor:
 	"""
 	Ручной препроцессинг и обучение классификатора.
