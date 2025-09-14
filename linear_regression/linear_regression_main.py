@@ -1,7 +1,7 @@
 from linear_regression.data.DiabetesDatasetLoader import DiabetesDatasetLoader
-from linear_regression.processing.DiabetesDatasetSpliter import DiabetesDatasetSpliter
 from linear_regression.processing.DiabetesLinearRegression import DiabetesLinearRegression
 from linear_regression.visualization.RegressionVisualizer import RegressionVisualizer
+from helpers.DatasetSpliter import DatasetSpliter
 
 def main():
     dataset = DiabetesDatasetLoader()
@@ -10,12 +10,12 @@ def main():
     X = dataset.get_data()
     y = dataset.get_target()
 
-    spliter = DiabetesDatasetSpliter()
-    split_data = spliter.split_dataset(X, y)
+    splitter = DatasetSpliter()
+    split_data = splitter.split_dataset(X, y)
     X_train, y_train = split_data["train"]
     X_test, y_test = split_data["test"]
 
-    print(spliter.get_split_dataset_info())
+    print(splitter.get_split_dataset_info())
 
     regressor = DiabetesLinearRegression()
     regressor.train(X_train, y_train)

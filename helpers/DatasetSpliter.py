@@ -1,9 +1,9 @@
-from typing import Tuple, Dict
+from typing import Dict, Tuple
 import numpy as np
 from sklearn.model_selection import train_test_split
 from helpers import dataHelper, validationHelper
 
-class DiabetesDatasetSpliter:
+class DatasetSpliter:
 	"""
 	Разделитель датасета на обучающую и тестовую выборку.
 	 	test_size - Доля тестовой выборки.
@@ -13,8 +13,8 @@ class DiabetesDatasetSpliter:
 	default_test_size = 0.2
 	default_random_state = 42
 
-	def __init__(self, test_size = None, random_state = None):
-		""" Инициализирует экземпляр типа DiabetesDatasetSpliter. """
+	def __init__(self, test_size=None, random_state=None):
+		""" Инициализирует экземпляр типа DatasetSpliter. """
 
 		self.test_size = dataHelper.set_default_if_input_value_null(
 			default_value=self.default_test_size,
@@ -26,7 +26,7 @@ class DiabetesDatasetSpliter:
 			input_value=random_state,
 		)
 
-		self.X_train= None
+		self.X_train = None
 		self.X_test = None
 		self.y_train = None
 		self.y_test = None
@@ -59,3 +59,5 @@ class DiabetesDatasetSpliter:
 				f"X_test: {self.X_test.shape}\n"
 				f"y_train: {self.y_train.shape}\n"
 				f"y_test: {self.y_test.shape}\n")
+
+
